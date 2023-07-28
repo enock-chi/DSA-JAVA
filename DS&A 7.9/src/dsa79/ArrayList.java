@@ -4,7 +4,7 @@ import java.util.*;
 public class ArrayList<e> implements List<e> {
 	public static final int CAPACITY = 20;
     private e[] data;
-    private int size;
+    private int size = 0;
     
     public ArrayList() { this(CAPACITY);}
     
@@ -28,8 +28,11 @@ public class ArrayList<e> implements List<e> {
     
     public void add(int i, e data) throws IndexOutOfBoundsException {
     	checkIndex(i,size+1);
-    	if ( size == this.data.length) resize(this.data.length);
-    	for ( int k = size; k >= i; k--) {
+    	if ( size == this.data.length) {
+    		resize(this.data.length);
+    		System.out.println(size);
+    	}
+    	for ( int k = size - 1; k >= i; k--) {
     		this.data[k+1] = this.data[k];
     	}
     	this.data[i] = data;
@@ -57,7 +60,7 @@ public class ArrayList<e> implements List<e> {
     
     protected void resize(int s) {
     	e[] arr = (e[]) new Object[s*2];
-    	for ( int k = 0; k < s; k++) {
+    	for ( int k = 0; k < s-1; k++) {
     		arr[k] = data[k];
     	}
     	data = arr;

@@ -3,7 +3,7 @@ package dsa72;
 import java.util.*;
 
 public class StackADT<e> implements Stack<e> {
-	ArrayList<e> stack = new ArrayList<>();
+	Arraylist<e> stack = new Arraylist<>();
 	
 	public StackADT() {}
 	
@@ -11,12 +11,12 @@ public class StackADT<e> implements Stack<e> {
 	
 	public boolean isEmpty() { return (stack.size() == 0);}
 	
-	public void push(e data) { stack.add(0,data);}
+	public void push(e data) { stack.add(stack.size(),data);}
 	
-	public e pop() { return stack.remove(0);}
+	public e pop() { return stack.remove(stack.size()-1);}
 	
 	public e first() { return stack.get(0);}
 	
-	public void print() { System.out.println(stack.toString());}
+	public void print() { stack.print();}
 
 }

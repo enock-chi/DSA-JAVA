@@ -7,8 +7,8 @@ public class main {
 		// TODO Auto-generated method stub
         dsa79.ArrayList<Integer> list = new dsa79.ArrayList<>();
         
-        for (int k = 1; k <= 50; k++) {
-        	list.add(0, k);
+        for (int k = 1; k <= 21; k++) {
+        	list.add(k-1, k);
         }
         
         list.print();
