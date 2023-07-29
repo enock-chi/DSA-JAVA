@@ -1,0 +1,23 @@
+package dsa711;
+
+public interface PositionalList<e> {
+	int size();
+	
+	boolean isEmpty();
+	
+	Position<e> first();
+	
+	Position<e> last();
+	
+	Position<e> before(Position<e> p) throws IllegalArgumentException;
+	
+	Position<e> after(Position<e> p) throws IllegalArgumentException;
+	
+	Position<e> addFirst(e data);
+	
+	Position<e> addLast(e data);
+	
+	Position<e> addBefore(Position<e> p, e data) throws IllegalArgumentException;
+	
+	Position<e> addAfter(Position<e> p, e data) throws IllegalArgumentException;
+}
