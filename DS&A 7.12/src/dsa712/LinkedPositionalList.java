@@ -85,13 +85,11 @@ public class LinkedPositionalList<e> implements PositionalList<e> {
 	
 	public Position<e> addBefore(Position<e> p, e data) throws IllegalArgumentException{
 		Node<e> node = validate(p);
-		print();
 		return addBetween(data, node.getPrev(), node);
 	}
 	
 	public Position<e> addAfter(Position<e> p, e data) throws IllegalArgumentException{
 		Node<e> node = validate(p);
-		print();
 		return addBetween(data,node,node.getNext());
 	}
 	
@@ -100,7 +98,6 @@ public class LinkedPositionalList<e> implements PositionalList<e> {
 		e output = element.getData();
 		element.setData(data);
 		System.out.println(output);
-		print();
 		return output;
 	}
 	
@@ -113,7 +110,6 @@ public class LinkedPositionalList<e> implements PositionalList<e> {
 		node.setData(null);
 		node.setNext(null);
 		node.setPrev(null);
-		print();
 		return output;
 	}
 	
@@ -127,6 +123,26 @@ public class LinkedPositionalList<e> implements PositionalList<e> {
 		}
 		
 		System.out.println(Arrays.toString(arr));
+	}
+	
+	
+	/**
+	 * Returns index of p else -1
+	 * 
+	 * @param Position<e> p, position in positional list to search
+	 * @return output
+	 * */
+	public int indexOf(Position<e> p) {
+		int output = -1;
+		Position<e> curr =  first();
+		for (int k = 0; k < size ; k++) {
+			output++;
+			if (curr == p) {
+				return output;
+			}
+			curr = after(curr);
+		}
+		return output;
 	}
 	
 	
