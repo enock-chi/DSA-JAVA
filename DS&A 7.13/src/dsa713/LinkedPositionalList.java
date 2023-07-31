@@ -1,5 +1,7 @@
 package dsa713;
 
+import java.util.Arrays;
+
 public class LinkedPositionalList<e> implements PositionalList<e>{
 //===================================================
 	private static class Node<e> implements Position<e>{
@@ -113,6 +115,34 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		node.setPrev(null);
 		size--;
 		return output;
+	}
+	
+	/**
+	 * Method to find an element e within the linked list.
+	 * 
+	 * @param e elemwnt, the element to be searched for.
+	 * @return index, -1 if not found otherwise the actual index 
+	 *         within the list.
+	 * */
+	public int findPosition(e element) {
+		Node<e> curr = (Node<e>) first();
+		int index = 0;
+		for (int k = 0; k < size; k++) {
+			if (curr.getData() == element) return index;
+			curr = curr.getNext();
+			index++;
+		}
+		return -1;
+	}
+	
+	public void print() {
+		Node<e> curr = (Node<e>) first();
+		e[] arr = (e[]) new Object[size];
+		for ( int k = 0; k < size; k++) {
+			arr[k] = curr.getData();
+			curr = curr.getNext();
+		}
+		System.out.println(Arrays.toString(arr));
 	}
 
 }

@@ -24,4 +24,6 @@ public interface PositionalList<e> {
 	e set(Position<e> p, e data) throws IllegalArgumentException;
 	
 	e remove(Position<e> p) throws IllegalArgumentException;
+	
+	int findPosition(e element);
 }
