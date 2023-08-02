@@ -15,7 +15,7 @@ public class LinkedPositionalList<e> implements PositionalList<e> {
 		}
 		
 		public e getData() throws IllegalStateException {
-			if (next == null) throw new IllegalStateException("Position not valid");
+			//if (next == null) throw new IllegalStateException("Position not valid");
 			return data;
 		}
 		
