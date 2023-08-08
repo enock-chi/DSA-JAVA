@@ -13,6 +13,10 @@ public class main {
 		
 		list.print();
 		
+		list.remove(5);
+		
+		list.print();
+		
 		list.clear();
 		
 		list.print();
