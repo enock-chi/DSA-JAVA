@@ -25,13 +25,13 @@ public class MTF<e> {
 	protected int count(Position<Item<e>> p) { return p.getData().getCount();}
 	
 	protected void moveUp(Position<Item<e>> p) {
-		if ( p != list.first()) list.addFirst(list.remove(list.index(p)));
+		if ( p != list.first()) list.addFirst(list.remove(p));
 	}
 	
 	protected Position<Item<e>> findPosition( e data ){
 		Position<Item<e>> walk = list.first();
 		while ( walk != null && !data.equals(value(walk))) {
-			walk = list.after(list.index(walk));
+			walk = list.after(walk);
 		}
 		return walk;
 	}
@@ -44,7 +44,7 @@ public class MTF<e> {
 	
 	public void remove(e data) {
 		Position<Item<e>> p = findPosition(data);
-		if ( p != null) list.remove(list.index(p));
+		if ( p != null) list.remove(p);
 	}
 	
 	public void access( e data ) {
@@ -57,7 +57,9 @@ public class MTF<e> {
 	public Iterable<e> getFavorites(int i) throws IllegalArgumentException{
 		if ( i < 0 || size() > i) throw new IllegalArgumentException("Invalid index");
 		PositionalList<Item<e>> temp = new LinkedPositionalList<>();
-		
+		for (Item<e> item : list) {
+			
+		}
 	}
 	
 	

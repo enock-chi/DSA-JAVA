@@ -31,7 +31,6 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		
 	}
 //========================================================================================
-	private ArrayList<Position<e>> list = new ArrayList<>();
 	private Node<e> head;
 	private Node<e> tail;
 	private int size = 0;
@@ -70,51 +69,49 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 	
 	public Position<e> last(){ return position(tail.getPrev());}
 	
-	public e get(int k) {
-		Node<e> node = validate(list.get(k));
+	public e get(Position<e> p) {
+		Node<e> node = validate(p);
 		return node.getData();
 	}
 	
-	public Position<e> addFirst(e data){ 
-		list.add(0,addBetween(data,head,head.getNext()));
-		return list.get(0);
+	public Position<e> addFirst(e data){ ;
+		return addBetween(data,head,head.getNext());
 	}
 	
 	public Position<e> addLast( e data){
-		list.add(addBetween(data,tail.getPrev(),tail));
-		return list.get(size - 1);
+		return addBetween(data,tail.getPrev(),tail);
 	}
 	
-	public Position<e> before(int i) throws IllegalArgumentException{
-		Node<e> node = validate(list.get(i));
+	public Position<e> before(Position<e> p) throws IllegalArgumentException{
+		Node<e> node = validate(p);
 		return node.getPrev();
 	}
 	 
-	public Position<e> after(int i) throws IllegalArgumentException{
-		Node<e> node = validate(list.get(i));
+	public Position<e> after(Position<e> p) throws IllegalArgumentException{
+		Node<e> node = validate(p);
 		return node.getNext();
 	}
 	
-	public Position<e> addBefore(int i, e data) throws IllegalArgumentException{
-		Node<e> node = validate(list.get(i));
+	public Position<e> addBefore(Position<e> p, e data) throws IllegalArgumentException{
+		Node<e> node = validate(p);
 		return addBetween(data,node.getPrev(),node);
 	}
 	
-	public Position<e> addAfter(int i, e data) throws IllegalArgumentException{
-		Node<e> node = validate(list.get(i));
+	public Position<e> addAfter(Position<e> p, e data) throws IllegalArgumentException{
+		Node<e> node = validate(p);
 		return addBetween(data,node,node.getNext());
 	}
 	
-	public e set(int i, e data) throws IllegalArgumentException{
-		Node<e> node = validate(list.get(i));
+	public e set(Position<e> p, e data) throws IllegalArgumentException{
+		Node<e> node = validate(p);
 		e removed = node.getData();
 		node.setData(data);
 		return removed;
 		
 	}
 	
-	public e remove(int i) throws IllegalArgumentException{
-		Node<e> node = validate(list.remove(i));
+	public e remove(Position<e> p) throws IllegalArgumentException{
+		Node<e> node = validate(p);
 		e removed = node.getData();
 		node.getNext().setPrev(node.getPrev());
 		node.getPrev().setNext(node.getNext());
@@ -126,19 +123,15 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 	}
 	
 	public void print() {
+		Node<e> curr = (Node<e>) first();
 		e[] arr = (e[]) new Object[size];
 		for (int k = 0; k < size; k++) {
-			Node<e> node = validate(list.get(k));
-			arr[k] = node.getData();
+			arr[k] = curr.getData();
+			curr = curr.getNext();
 		}
 		System.out.println(Arrays.toString(arr));
 	}
-	
-	public int index(Position<e> p) throws IllegalArgumentException{
-		return list.indexOf(p);
-	}
-	
-//==============================================================================================
+//========================nested PositionIterator class=======================
 	private class PositionIterator implements Iterator<Position<e>>{
 		private Position<e> cursor = first();
 		private Position<e> recent = null;
@@ -146,39 +139,46 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		public boolean hasNext() { return (cursor != null);}
 		
 		public Position<e> next() throws NoSuchElementException{
-			if (cursor == null) throw new NoSuchElementException("Next is invalid");
+			if ( cursor == null ) throw new NoSuchElementException("End of set reached");
 			recent = cursor;
-			cursor = after(list.indexOf(cursor));
+			cursor = after(cursor);
 			return recent;
 		}
 		
 		public void remove() throws IllegalArgumentException{
-			if ( recent == null) throw new IllegalArgumentException("Set is empty");
-			LinkedPositionalList.this.remove(list.indexOf(recent));
+			if ( recent == null ) throw new IllegalArgumentException("Set is empty");
+			LinkedPositionalList.this.remove(recent);
 			recent = null;
 		}
-//===============================================================================================
-		
-		private class ElementIterator implements Iterable<Position<e>>{
-			Iterator<Position<e>> posIterator = new PositionIterator();
-			public boolean hasNext() { return posIterator.hasNext();}
-			public e next() { return posIterator.next().getData();}
-			public void remove() { posIterator.remove();}
-		}
-//===============================================================================================
-		
-		private class PositionIterable implements Iterable<Position<e>>{
-			@Override
-			public Iterator<Position<e>> iterator(){ return new PositionIterator();}
-		}
-		
-		
-		public Iterable<Position<e>> positions(){ return new PositionIterable();}
-		
-//===============================================================================================
-		
-	
-		public Iterator<e> iterator(){ return new ElementIterator();}
-		
 	}
+//=========================nested PositionIterable class=======================
+	private class PositionIterable implements Iterable<Position<e>>{
+		public Iterator<Position<e>> iterator(){ return new PositionIterator();}
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Position<e> next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	}
+//=============================================================================
+	public Iterable<Position<e>> positions(){
+		return new PositionIterable();
+	}
+//==========================nested ElementIterator class=======================
+	private class ElementIterator implements Iterator<e>{
+		Iterator<Position<e>> posIterator = new PositionIterator();
+		public boolean hasNext() { return posIterator.hasNext();}
+		public e next() { return posIterator.next().getData();}
+		public void remove() {posIterator.remove();}
+	}
+//=============================================================================
+	public Iterator<e> iterator(){ return new ElementIterator();}
+	
 }
