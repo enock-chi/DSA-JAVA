@@ -57,8 +57,8 @@ public class MTF<e> {
 	public Iterable<e> getFavorites(int i) throws IllegalArgumentException{
 		if ( i < 0 || size() > i) throw new IllegalArgumentException("Invalid index");
 		PositionalList<Item<e>> temp = new LinkedPositionalList<>();
-		for (Position<Item<e>> item : list) {
-			temp.addLast(item.getData());
+		for (Item<e> item : list) {
+			temp.addLast(item);
 		}
 		
 		PositionalList<e> result = new LinkedPositionalList<>();
@@ -72,7 +72,7 @@ public class MTF<e> {
 			result.addLast(value(highPos));
 			temp.remove(highPos);
 		}
-		return result;
+		return (Iterable<e>) result;
 	}
 	
 	

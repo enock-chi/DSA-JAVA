@@ -1,7 +1,7 @@
 package dsa721;
 import java.lang.Iterable;
 
-public interface PositionalList<e> extends Iterable<Position<e>>{
+public interface PositionalList<e> extends Iterable<e>{
 	int size();
 	
 	boolean isEmpty();

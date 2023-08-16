@@ -132,6 +132,20 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		}
 		System.out.println(Arrays.toString(arr));
 	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder("(");
+		Node<e> walk = (Node<e>)first();
+		while ( walk != tail) {
+			sb.append(walk.getData());
+			walk = walk.getNext();
+			if ( walk != tail) {
+				sb.append(", ");
+			}
+			sb.append(")");
+		}
+		return sb.toString();
+	}
 //========================nested PositionIterator class=======================
 	private class PositionIterator implements Iterator<Position<e>>{
 		private Position<e> cursor = first();
@@ -155,16 +169,6 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 //=========================nested PositionIterable class=======================
 	private class PositionIterable implements Iterable<Position<e>>{
 		public Iterator<Position<e>> iterator(){ return new PositionIterator();}
-
-		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		public Position<e> next() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 	}
 //=============================================================================
 	public Iterable<Position<e>> positions(){
@@ -178,7 +182,6 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		public void remove() {posIterator.remove();}
 	}
 //=============================================================================
-	@Override
 	public Iterator<e> iterator(){ return new ElementIterator();}
 	
 }
