@@ -1,5 +1,6 @@
 package dsa721;
 import java.util.*;
+import java.lang.Iterable;
 
 public class LinkedPositionalList<e> implements PositionalList<e>{
 //======================================================================================
@@ -155,13 +156,11 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 	private class PositionIterable implements Iterable<Position<e>>{
 		public Iterator<Position<e>> iterator(){ return new PositionIterator();}
 
-		@Override
 		public boolean hasNext() {
 			// TODO Auto-generated method stub
 			return false;
 		}
 
-		@Override
 		public Position<e> next() {
 			// TODO Auto-generated method stub
 			return null;
@@ -179,6 +178,7 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		public void remove() {posIterator.remove();}
 	}
 //=============================================================================
+	@Override
 	public Iterator<e> iterator(){ return new ElementIterator();}
 	
 }
