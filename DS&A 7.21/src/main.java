@@ -7,11 +7,11 @@ public class main {
 		// TODO Auto-generated method stub
 		MTF<Integer> mtf = new MTF<>();
 		
-		for (int k = 1; k <= 20; k++) {
-			mtf.access(k);
+		for (int k = 1; k <= 5; k++) {
+			mtf.add(k);
 		}
 		
-		System.out.println(mtf.toString());
+		mtf.print();
 
 	}
 

@@ -16,7 +16,7 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		}
 		
 		public e getData() { 
-			if ( next == null ) throw new IllegalStateException("Position not valid");
+			//if ( next == null ) throw new IllegalStateException("Position not valid");
 			return data;
 		}
 		
@@ -133,19 +133,6 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		System.out.println(Arrays.toString(arr));
 	}
 	
-	public String toString() {
-		StringBuilder sb = new StringBuilder("(");
-		Node<e> walk = (Node<e>)first();
-		while ( walk != tail) {
-			sb.append(walk.getData());
-			walk = walk.getNext();
-			if ( walk != tail) {
-				sb.append(", ");
-			}
-			sb.append(")");
-		}
-		return sb.toString();
-	}
 //========================nested PositionIterator class=======================
 	private class PositionIterator implements Iterator<Position<e>>{
 		private Position<e> cursor = first();

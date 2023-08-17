@@ -47,6 +47,20 @@ public class MTF<e> {
 		if ( p != null) list.remove(p);
 	}
 	
+	public void print() {
+		e[] arr = (e[])new Object[list.size()];
+		Position<Item<e>> walk = list.first();
+		for ( int k = 0; k < list.size(); k++) {
+			arr[k] = (e)walk.getData().getValue();
+			walk = list.after(walk);
+		}
+		System.out.println(Arrays.toString(arr));
+	}
+	
+	public void add(e data) {
+		list.addLast(new Item<>(data));
+	}
+	
 	public void access( e data ) {
 		Position<Item<e>> p = findPosition(data);
 		if ( p == null) p = list.addLast(new Item<e>(data));
