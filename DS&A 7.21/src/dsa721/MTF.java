@@ -57,8 +57,8 @@ public class MTF<e> {
 		System.out.println(Arrays.toString(arr));
 	}
 	
-	public void add(e data) {
-		list.addLast(new Item<>(data));
+	public Position<Item<e>> add(e data) {
+		return list.addLast(new Item<>(data));
 	}
 	
 	public void access( e data ) {
