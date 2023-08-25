@@ -1,19 +1,20 @@
 package dsa724;
+import java.util.*;
 
 public class MTF<e> {
 //=================================================================
-	protected static class Item<e>{
+	public static class Item<e>{
 		private e value;
 		private int count = 0;
 		
-		public Item(e val) { this.value = val;}
+		public Item(e val) { value = val;}
 		public int getCount() { return count;}
 		public e getValue() { return value;}
 		public void inc() { count++;}
 	}
 //=================================================================
 	
-	PositionalList<Item<e>> list = new LinkedPositionalList<>();
+	LinkedPositionalList<Item<e>> list = new LinkedPositionalList<>();
 	public MTF() {}
 	
 	protected e value(Position<Item<e>> p) { return p.getData().getValue();}
@@ -37,8 +38,12 @@ public class MTF<e> {
 	public boolean isEmpty() { return list.isEmpty();}
 	
 	public void access(e data) {
-		Position<Item<e>> p = findPosition(data);
-		if ( p == null ) p = list.addLast(); 
+		Position<Item<e>> p = (list.size() == 0) ? findPosition(data) : null;
+		if ( p == null ) {
+			p = list.addLast(new Item<e>(data));
+		}
+		p.getData().inc();
+		moveUp(p);
 	}
 	
 	public Iterable<e> getFavourites(int k) throws IllegalArgumentException{
@@ -47,7 +52,7 @@ public class MTF<e> {
 		PositionalList<Item<e>> temp = new LinkedPositionalList<>();
 		for (Item<e> item : list) temp.addLast(item);
 		
-		PositionalList<Item<e>> result = new LinkedPositionalList<>();
+		PositionalList<e> result = new LinkedPositionalList<>();
 		for ( int j = 0; j < k ; j++) {
 			Position<Item<e>> highPos = temp.first();
 			Position<Item<e>> walk = temp.after(highPos);
@@ -58,8 +63,23 @@ public class MTF<e> {
 			result.addLast(value(highPos));
 			temp.remove(highPos);
 		}
+		return (Iterable<e>) result;
 		
-		
+	}
+	
+	public void remove(e data) {
+		Position<Item<e>> p = findPosition(data);
+		if ( p != null ) list.remove(p);
+	}
+	
+	public void print() {
+		e[] arr = (e[]) new Object[list.size()];
+		Position<Item<e>> walk = list.first();
+		for ( int k = 0; k < list.size() ; k++) {
+			arr[k] = walk.getData().getValue();
+			walk = list.after(walk);
+		}
+		System.out.println(Arrays.toString(arr));
 	}
 
 }

@@ -5,13 +5,13 @@ public class main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LinkedPositionalList<Integer> list = new LinkedPositionalList<>();
+		MTF<Integer> list = new MTF<>();
 		
 		for (int k = 1; k <= 20; k++ ) {
-			list.addLast(k);
+			list.access(k);
 		}
-        
-		System.out.println(list.toString());
+		
+		list.print();
 	}
 
 }
