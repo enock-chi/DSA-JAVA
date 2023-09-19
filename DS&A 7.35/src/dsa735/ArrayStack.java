@@ -4,7 +4,6 @@ public class ArrayStack<e> implements Stack<e> {
 	  protected final static int CAPACITY = 20; 
       private e[] data;
       private int head;
-      private int tail;
       private int size;
       
       public ArrayStack() { this(CAPACITY);}
@@ -12,15 +11,15 @@ public class ArrayStack<e> implements Stack<e> {
       public ArrayStack( int cap) {
     	  data = (e[]) new Object[cap];
     	  head = 0;
-    	  tail = 0;
     	  size = 0;
       }
       
       public int size() { return size;}
       
-      public boolean isEmpty() { return (size < 0);}
+      public boolean isEmpty() { return (size == 0);}
       
       public void push( e data) {
+    	  resize();
     	  this.data[head] = data;
     	  head++;
     	  size++;
@@ -30,19 +29,42 @@ public class ArrayStack<e> implements Stack<e> {
       
       public e pop() {
     	  if (isEmpty()) return null;
-    	  e removed = data[tail];
-    	  data[head] = null;
+    	  resize();
+    	  e removed = data[head - 1];
+    	  data[head - 1] = null;
     	  head--;
     	  size--;
     	  return removed;
       }
       
+      public void resize() {
+    	  e[] temp = null;
+    	  if ( size == data.length) {
+    		  temp = (e[]) new Object[data.length * 2];
+    	  } else if( size <= (data.length / 2)) {
+    		  temp = (e[]) new Object[(int) (data.length * 0.75)];
+    	  } else {
+    		  return;
+    	  }
+    	  
+    	  for ( int k = 0; k < size ; k++) {
+    		  temp[k] = data[k];
+    	  }
+    	  
+    	  data = temp;
+    	  
+      }
+      
       public void print() {
     	  e[] arr = (e[]) new Object[size];
-    	  for (int k = tail; k < size; k++) {
+    	  for (int k = 0; k < size; k++) {
     		  arr[k] = data[k];
     	  }
     	  System.out.println(Arrays.toString(arr));
+      }
+      
+      public void fullPrint() {
+    	  System.out.println(Arrays.toString(data));
       }
 	
 
