@@ -13,6 +13,8 @@ public class main {
 		}
 		
 		list.print();
+		
+		System.out.println(list.positionAtIndex(5));
 
 	}
 

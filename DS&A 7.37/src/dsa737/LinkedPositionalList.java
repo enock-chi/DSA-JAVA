@@ -110,6 +110,25 @@ public class LinkedPositionalList<e> implements PositionalList<e>{
 		return removed;
 	}
 	
+	public Position<e> positionAtIndex(int i){
+		int ref = size / 2;
+		Node<e> pointer = null;
+		if ( i <= ref ) {
+			System.out.println("under");
+			pointer = (Node<e>) first();
+			for ( int k = 0; k < i; k++ ) {
+				pointer = pointer.getNext();
+			} 
+		} else {
+			System.out.println("above");
+			pointer = (Node<e>) last();
+			for ( int k = size - 1; k > i; k--) {
+				pointer = pointer.getPrev();
+			}
+		}
+		return pointer;
+	}
+	
 	public void print() {
 		e[] arrPrint = (e[]) new Object[size];
 		Node<e> pointer =(Node<e>) first();
