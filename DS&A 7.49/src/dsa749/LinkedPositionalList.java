@@ -128,6 +128,7 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 			if ( recent == null) throw new NoSuchElementException("");
 			return (before(recent) != null);
 		}
+		
 		@Override
 		public Position<E> previous() {
 			if (!hasPrevious()) throw new NoSuchElementException("");
@@ -174,8 +175,56 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 
 		
 	}
-	
-	private 
 //==========================================End Nested ListIterator Class==========================================
+	
+//==========================================Nested PositionIterable class==========================================
+	private class PositionIterable implements Iterable<Position<E>> {
+	   public Iterator<Position<E>> iterator() { return new LinkedIterator(); }
+	} 
+//========================================End Nested PositionIterable class========================================
+	
+	public Iterable<Position<E>> positions(){ return new PositionIterable();}
+	
+//===========================================Nested ElementIterator Class==========================================
+	private class ElementIterator implements ListIterator<E>{
+		ListIterator<Position<E>> posIterator = new LinkedIterator();
+		@Override
+		public boolean hasNext() { return posIterator.hasNext(); }
+	
+		@Override
+		public E next() { return posIterator.next().getData(); }
+		
+		public void remove() { posIterator.remove(); }
+
+		@Override
+		public boolean hasPrevious() { return posIterator.hasNext(); }
+
+		@Override
+		public E previous() { return posIterator.previous().getData();
+		}
+
+		@Override
+		public int nextIndex() { return posIterator.nextIndex(); }
+
+		@Override
+		public int previousIndex() { return posIterator.previousIndex(); }
+
+		@Override
+		public void set(E e) { 
+			
+			posIterator.set(head);
+		}
+
+		@Override
+		public void add(E e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+//========================================End Nested ElelmentItetator class========================================
+	
+	public ListIterator<E> listiterator(){ return new ElementIterator();}
 
 }

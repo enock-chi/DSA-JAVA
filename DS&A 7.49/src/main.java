@@ -1,3 +1,5 @@
+import java.util.ListIterator;
+
 import dsa749.*;
 
 public class main {
@@ -8,7 +10,7 @@ public class main {
         myList.addLast(2);
         myList.addLast(3);
 
-        ListIterator<Integer> iterator = myList.listIterator();
+        ListIterator<Integer> iterator = myList.listiterator();
 
         // Iterate forward through the list
         while (iterator.hasNext()) {
