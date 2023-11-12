@@ -77,7 +77,7 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 	
 	public Position<E> after(Position<E> p) throws IllegalArgumentException{
 		Node<E> node = validate(p);
-		return position(node.getPrev());
+		return position(node.getNext());
 	}
 	
 	public Position<E> addBefore(Position<E> p, E data) throws IllegalArgumentException{
@@ -108,6 +108,16 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 		node = null;
 		size--;
 		return removed;
+	}
+	
+	public void print() {
+		Position<E> curr = first();
+		E[] storage = (E[]) new Object[size];
+		for ( int k = 0; k < size ; k++) {
+			storage[k] = curr.getData();
+			curr = after(curr);
+		}
+		System.out.println(Arrays.toString(storage));
 	}
 	
 //============================================Nested ListIterator Class============================================

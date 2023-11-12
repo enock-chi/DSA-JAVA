@@ -13,18 +13,22 @@ public class main {
         ListIterator<Integer> iterator = myList.listiterator();
 
         // Iterate forward through the list
-        while (iterator.hasNext()) {
-            Integer element = iterator.next();
-            // Perform some operation with the element
-            System.out.println(element);
-        }
-
-        // Iterate backward through the list
-        while (iterator.hasPrevious()) {
-            Integer element = iterator.previous();
-            // Perform some operation with the element
-            System.out.println(element);
-        }
+        
+        Integer element = iterator.next();           
+        System.out.println(element);                  
+    
+        
+        myList.print();
+       
+        iterator.next();
+        System.out.println(iterator.hasPrevious());
+        
+      
+        Integer elements = iterator.previous();
+        System.out.println(elements);
+        
+        
+       
 	}
 
 }
