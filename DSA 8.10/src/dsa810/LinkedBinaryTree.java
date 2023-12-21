@@ -1,4 +1,5 @@
 package dsa810;
+import java.util.*;
 
 public class LinkedBinaryTree<E> extends AbstractBinaryTree<E>{
 //====================================Nested Node Class====================================
@@ -45,6 +46,8 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E>{
 	public LinkedBinaryTree() { }
 	
 	public int size() { return size;}
+	
+	public boolean isEmpty() { return (size == 0);}
 	
 	public Position<E> root() { return root;}
 	
@@ -132,5 +135,65 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E>{
 		return bin;
 	}
 	
+	public int answer(Position<E> p) throws IllegalArgumentException{
+		Node<E> n = validate(p);
+		if (isExternal(p)) {
+			Integer num = Integer.valueOf((String)n.getData());
+			return num;
+			} else {
+				String operator = (String) n.getData();
+				int result = 0;
+				for (Position<E> c : children(p)) {
+					switch(operator) {
+					case "*":
+						if (result == 0) result = 1;
+						result *= answer(c);
+						break;
+					case "/":
+						if (result == 0) result = answer(c);
+						else result /= answer(c);
+						break;
+					case "+":
+						result = answer(c) + result;
+						break;
+					case "-":
+						result = answer(c) - result;
+						break;
+					}
+				}
+			return result;
+			}
+		}
+	
+	
+	
+//=====================================Nested ElementIterator Class=====================================
+	private class ElementIterator implements Iterator<E>{
+		Iterator<Position<E>> posIterator = positions().iterator();
+		public boolean hasNext() { return posIterator.hasNext();}
+		public E next() { return posIterator.next().getData();}
+		public void remove() { posIterator.remove();}
+		
+	}
+//===================================End Nested ElementIterator Class===================================
+	public Iterator<E> iterator() { return new ElementIterator();}
+	
+	public Iterable<Position<E>> positions() { return preorder();}
+	
+	
+	private void preorderSubtree(Position<E> p, List<Position<E>> list) {
+		list.add(p);
+		for (Position<E> c: list) {
+			preorderSubtree(c,list);
+		}
+	}
+	
+	public Iterable<Position<E>> preorder(){
+		List<Position<E>> list = new ArrayList<>();
+		if (!isEmpty()) {
+			preorderSubtree(root(),list);
+		}
+		return list;
+	}
 	
 }
